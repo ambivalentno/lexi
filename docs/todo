@@ -1,0 +1,67 @@
+VCS:
+GITHUB/BITBUCKET + branches
+
+VIEWS:
+1. Views for teacher
+    CRUD for course
+    CRUD for lesson
+    CRUD for unit
+    CRUD for question/answer
+    1. js to autopopulate unit order in a lesson
+    2. (js) logic to reorder units in a lesson
+2. Views for student (radiobutton answers)
+    1. Templatetags to answer whether user passed unit, lesson, course
+
+TESTS:
+BDD?
+bdd with mechanize http://pythonhosted.org/behave/django.html
+bdd with selenium https://gist.github.com/eykd/1637965 (<1.5)
+    don't run south migrations during tests
+    test activation (maybe, publishing?)
+    test deactiavtion of Course
+    test user answers a unit
+    test teacher creates a new course
+
+MODELS:
+use AbstractBaseModel to have title, datetimes and is_active there.
+Probably, we will add cooperative features and access features there
+
+LESSON:
+1. Do not have lessons with more units than we can have in csv field. Same for questions in unit
+(for now we will have 99999999 items as a max)
+2. Add counter field
+
+QUESTION:
+1. Add restriction to have only one right answer
+2. Never have Question without right Answer (js, models)
+    we've got activate() methods.
+
+UNIT:
+I did not resolve issues with changes in is_active Units/maybe custom clean()?
+
+USER:
+Drop avatars
+
+DEPLOY:
+1. AWS
+2. Heroku + postgres
+    http://www.realpython.com/blog/python/migrating-your-django-project-to-heroku/#.UyVgE1YsTeQ
+3. Monitoring (new relic?)
+4. Maybe succesful deployment in case of passed integration/unittests despites
+  not all gherkin tests passed?
+
+
+
+Further development:
+1. logic to upload video to youtube
+2. add multiple choice variants and TextInput answers (BRANCH!)
+3. Access control + teamworking tools
+4. Data reuse (use units from other courses)
+5. Data versioning (save changes history in some sort of archive)
+6. Statistics for lesson efficiency (BRANCH!)
+7. Multilinguality
+8. performace tweaks/ bottlenecks detection
+https://speakerdeck.com/jacobian/django-doesnt-scale
+
+
+
