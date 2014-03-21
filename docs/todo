@@ -58,7 +58,7 @@ Further development:
 3. Access control + teamworking tools
 4. Data reuse (use units from other courses)
 5. Data versioning (save changes history in some sort of archive)
-6. Statistics for lesson efficiency (BRANCH!)
+6. Statistics for lesson efficiency (branch=statistics)
 7. Multilinguality
 8. performace tweaks/ bottlenecks detection
 https://speakerdeck.com/jacobian/django-doesnt-scale
