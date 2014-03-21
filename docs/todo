@@ -54,7 +54,7 @@ DEPLOY:
 
 Further development:
 1. logic to upload video to youtube
-2. add multiple choice variants and TextInput answers (BRANCH!)
+2. add multiple choice variants and TextInput answers (branch=multiple_answers)
 3. Access control + teamworking tools
 4. Data reuse (use units from other courses)
 5. Data versioning (save changes history in some sort of archive)
