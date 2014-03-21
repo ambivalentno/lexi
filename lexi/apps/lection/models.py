@@ -11,8 +11,6 @@ class Education(models.Model):
     '''
     Basic model to handle shared properties for all models
     '''
-    title = models.CharField(_('Title'), max_length=100)
-    is_active = models.BooleanField(default=False)
     created = models.DateTimeField(_('Created'), auto_now_add=True)
     modified = models.DateTimeField(_('Modified'), auto_now=True)
     creator = models.ForeignKey(User)
@@ -21,8 +19,19 @@ class Education(models.Model):
         abstract = True
 
 
+class Titled(models.Model):
+    '''
+    add title field
+    '''
+    title = models.CharField(_('Title'), max_length=100)
+    is_active = models.BooleanField(default=False)
 
-class Course(Education):
+    class Meta:
+        abstract = True
+
+
+
+class Course(Education, Titled):
     slug = models.SlugField(_('Slug'), max_length=100)
 
     class Meta:
@@ -39,7 +48,7 @@ class Course(Education):
         self.save()
 
 
-class Lesson(Education):
+class Lesson(Education, Titled):
     slug = models.SlugField(_('Slug', editable=False), max_length=100)
     course = models.ForeignKey(
         Course,
@@ -80,7 +89,7 @@ class Lesson(Education):
         self.save()
 
 
-class Unit(Education):
+class Unit(Education, Titled):
     """
     Container to store video + explanation + link to question
     """
@@ -137,7 +146,7 @@ class Unit(Education):
         self.save()
 
 
-class Question(Education):
+class Question(Education, Titled):
     """
     Question to ask students
     """
@@ -175,7 +184,7 @@ class Question(Education):
         self.save()
 
 
-class Answer(models.Model):
+class Answer(Education):
     is_right = models.BooleanField(_('is_right'), default=False)
     text = models.CharField(max_length=255)
     question = models.ForeignKey(
@@ -183,9 +192,6 @@ class Answer(models.Model):
         verbose_name=_('Question'),
         related_name='answers',
     )
-    creator = models.ForeignKey(User)
-    created = models.DateTimeField(_('Created'), auto_now_add=True)
-    modified = models.DateTimeField(_('Modified'), auto_now=True)
 
     class Meta:
         verbose_name = _('Answer')
