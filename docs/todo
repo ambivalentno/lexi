@@ -49,6 +49,7 @@ DEPLOY:
 3. Monitoring (new relic?)
 4. Maybe succesful deployment in case of passed integration/unittests despites
   not all gherkin tests passed?
+  http://docs.travis-ci.com/user/deployment/heroku/
 
 
 
