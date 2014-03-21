@@ -146,6 +146,7 @@ INSTALLED_APPS = (
     'south',
     'django_extensions',
     'social_auth',
+    # 'django_behave',
 
     )
 
@@ -177,6 +178,9 @@ LOGGING = {
             },
         }
 }
+
+# New settings from various apps
+# TEST_RUNNER = 'django_behave.runner.DjangoBehaveTestSuiteRunner'
 
 try:
     from local import *
