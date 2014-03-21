@@ -23,7 +23,7 @@ class Migration(SchemaMigration):
             ('is_active', self.gf('django.db.models.fields.BooleanField')(default=True)),
             ('date_joined', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
             ('lang', self.gf('django.db.models.fields.CharField')(max_length=3, blank=True)),
-            ('userpic', self.gf('core.utils.thumbs.ImageWithThumbsField')(max_length=100, null=True, blank=True)),
+            ('userpic', self.gf('users.utils.thumbs.ImageWithThumbsField')(max_length=100, null=True, blank=True)),
         ))
         db.send_create_signal(u'users', ['User'])
 
@@ -95,7 +95,7 @@ class Migration(SchemaMigration):
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'}),
-            'userpic': ('core.utils.thumbs.ImageWithThumbsField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'})
+            'userpic': ('users.utils.thumbs.ImageWithThumbsField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'})
         }
     }
 

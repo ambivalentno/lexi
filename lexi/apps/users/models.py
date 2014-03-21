@@ -13,7 +13,7 @@ from django.utils import timezone
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 
-from core.utils.thumbs import ImageWithThumbsField
+from .utils.thumbs import ImageWithThumbsField
 from .managers import CustomUserManager
 
 

@@ -8,67 +8,101 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Deleting model 'UserAns'
-        db.delete_table(u'lection_userans')
+        # Adding field 'Question.creator'
+        db.add_column(u'lection_question', 'creator',
+                      self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['users.User']),
+                      keep_default=False)
 
-        # Adding model 'UserLessonProgress'
-        db.create_table(u'lection_userlessonprogress', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(related_name='progress', to=orm['users.User'])),
-            ('lesson', self.gf('django.db.models.fields.related.ForeignKey')(related_name='progress', to=orm['lection.Lesson'])),
-            ('units', self.gf('django.db.models.fields.CommaSeparatedIntegerField')(max_length=255)),
-        ))
-        db.send_create_signal(u'lection', ['UserLessonProgress'])
 
-        # Adding unique constraint on 'UserLessonProgress', fields ['user', 'lesson']
-        db.create_unique(u'lection_userlessonprogress', ['user_id', 'lesson_id'])
+        # Changing field 'Question.title'
+        db.alter_column(u'lection_question', 'title', self.gf('django.db.models.fields.CharField')(default='1', max_length=100))
+        # Adding field 'Course.created'
+        db.add_column(u'lection_course', 'created',
+                      self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, default=datetime.datetime(2014, 3, 21, 0, 0), blank=True),
+                      keep_default=False)
 
-        # Deleting field 'Question.course'
-        db.delete_column(u'lection_question', 'course_id')
+        # Adding field 'Course.modified'
+        db.add_column(u'lection_course', 'modified',
+                      self.gf('django.db.models.fields.DateTimeField')(auto_now=True, default=datetime.datetime(2014, 3, 21, 0, 0), blank=True),
+                      keep_default=False)
 
-        # Deleting field 'Question.lesson'
-        db.delete_column(u'lection_question', 'lesson_id')
+        # Adding field 'Course.creator'
+        db.add_column(u'lection_course', 'creator',
+                      self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['users.User']),
+                      keep_default=False)
+
+        # Adding field 'Answer.creator'
+        db.add_column(u'lection_answer', 'creator',
+                      self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['users.User']),
+                      keep_default=False)
+
+        # Adding field 'Answer.created'
+        db.add_column(u'lection_answer', 'created',
+                      self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, default=datetime.datetime(2014, 3, 21, 0, 0), blank=True),
+                      keep_default=False)
+
+        # Adding field 'Answer.modified'
+        db.add_column(u'lection_answer', 'modified',
+                      self.gf('django.db.models.fields.DateTimeField')(auto_now=True, default=datetime.datetime(2014, 3, 21, 0, 0), blank=True),
+                      keep_default=False)
+
+        # Adding field 'Unit.creator'
+        db.add_column(u'lection_unit', 'creator',
+                      self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['users.User']),
+                      keep_default=False)
+
+        # Adding field 'Lesson.created'
+        db.add_column(u'lection_lesson', 'created',
+                      self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, default=datetime.datetime(2014, 3, 21, 0, 0), blank=True),
+                      keep_default=False)
+
+        # Adding field 'Lesson.modified'
+        db.add_column(u'lection_lesson', 'modified',
+                      self.gf('django.db.models.fields.DateTimeField')(auto_now=True, default=datetime.datetime(2014, 3, 21, 0, 0), blank=True),
+                      keep_default=False)
+
+        # Adding field 'Lesson.creator'
+        db.add_column(u'lection_lesson', 'creator',
+                      self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['users.User']),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Removing unique constraint on 'UserLessonProgress', fields ['user', 'lesson']
-        db.delete_unique(u'lection_userlessonprogress', ['user_id', 'lesson_id'])
-
-        # Adding model 'UserAns'
-        db.create_table(u'lection_userans', (
-            ('course', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['lection.Course'])),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['users.User'])),
-            ('lesson', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['lection.Lesson'])),
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('unit', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['lection.Unit'])),
-            ('question', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['lection.Question'])),
-            ('is_right', self.gf('django.db.models.fields.BooleanField')()),
-            ('is_last', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('answer', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['lection.Answer'])),
-            ('time_answered', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-        ))
-        db.send_create_signal(u'lection', ['UserAns'])
-
-        # Deleting model 'UserLessonProgress'
-        db.delete_table(u'lection_userlessonprogress')
+        # Deleting field 'Question.creator'
+        db.delete_column(u'lection_question', 'creator_id')
 
 
-        # User chose to not deal with backwards NULL issues for 'Question.course'
-        raise RuntimeError("Cannot reverse this migration. 'Question.course' and its values cannot be restored.")
+        # Changing field 'Question.title'
+        db.alter_column(u'lection_question', 'title', self.gf('django.db.models.fields.CharField')(max_length=255, null=True))
+        # Deleting field 'Course.created'
+        db.delete_column(u'lection_course', 'created')
 
-        # The following code is provided here to aid in writing a correct migration        # Adding field 'Question.course'
-        db.add_column(u'lection_question', 'course',
-                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['lection.Course']),
-                      keep_default=False)
+        # Deleting field 'Course.modified'
+        db.delete_column(u'lection_course', 'modified')
 
+        # Deleting field 'Course.creator'
+        db.delete_column(u'lection_course', 'creator_id')
 
-        # User chose to not deal with backwards NULL issues for 'Question.lesson'
-        raise RuntimeError("Cannot reverse this migration. 'Question.lesson' and its values cannot be restored.")
+        # Deleting field 'Answer.creator'
+        db.delete_column(u'lection_answer', 'creator_id')
 
-        # The following code is provided here to aid in writing a correct migration        # Adding field 'Question.lesson'
-        db.add_column(u'lection_question', 'lesson',
-                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['lection.Lesson']),
-                      keep_default=False)
+        # Deleting field 'Answer.created'
+        db.delete_column(u'lection_answer', 'created')
+
+        # Deleting field 'Answer.modified'
+        db.delete_column(u'lection_answer', 'modified')
+
+        # Deleting field 'Unit.creator'
+        db.delete_column(u'lection_unit', 'creator_id')
+
+        # Deleting field 'Lesson.created'
+        db.delete_column(u'lection_lesson', 'created')
+
+        # Deleting field 'Lesson.modified'
+        db.delete_column(u'lection_lesson', 'modified')
+
+        # Deleting field 'Lesson.creator'
+        db.delete_column(u'lection_lesson', 'creator_id')
 
 
     models = {
@@ -94,23 +128,32 @@ class Migration(SchemaMigration):
         },
         u'lection.answer': {
             'Meta': {'object_name': 'Answer'},
+            'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'creator': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['users.User']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_right': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'modified': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'question': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'answers'", 'to': u"orm['lection.Question']"}),
             'text': ('django.db.models.fields.CharField', [], {'max_length': '255'})
         },
         u'lection.course': {
             'Meta': {'object_name': 'Course'},
+            'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'creator': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['users.User']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'modified': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'slug': ('django.db.models.fields.SlugField', [], {'max_length': '100'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
         u'lection.lesson': {
             'Meta': {'object_name': 'Lesson'},
             'course': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'lessons'", 'to': u"orm['lection.Course']"}),
+            'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'creator': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['users.User']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'modified': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'slug': ('django.db.models.fields.SlugField', [], {'max_length': '100'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
@@ -118,16 +161,18 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Question'},
             'after_video': ('embed_video.fields.EmbedVideoField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'creator': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['users.User']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'modified': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'text': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'unit': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'questions'", 'to': u"orm['lection.Unit']"})
         },
         u'lection.unit': {
             'Meta': {'object_name': 'Unit'},
             'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'creator': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['users.User']"}),
             'explanation': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
@@ -161,7 +206,7 @@ class Migration(SchemaMigration):
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'related_name': "u'user_set'", 'blank': 'True', 'to': u"orm['auth.Permission']"}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'}),
-            'userpic': ('users.utils.thumbs.ImageWithThumbsField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'})
+            'userpic': ('users.utils.thumbs.ImageWithThumbsField', [], {'blank': 'True', 'max_length': '100', 'null': 'True', 'sizes': '((100, 100), (50, 50))'})
         }
     }
 
