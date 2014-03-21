@@ -117,28 +117,6 @@ class Unit(Education, Titled):
             self.position = n + 1
         super(Unit, self).save(*args,**kwargs)
 
-    # def user_passed(self, user):
-    #     '''
-    #     Detect whether User answered all questions of current unit right
-    #     TODO: We will use this after we have multiple right answer
-    #     Args:
-    #         user: User instance
-    #     Returns:
-    #         True: if user passed this unit
-    #         False: if user did not pass this unit
-    #     '''
-    #     answered_right = UserAns.objects.filter(
-    #         user=user,
-    #         unit=self,
-    #         is_last=True,
-    #         is_right=True
-    #     ).count()
-    #     all_questions = Question.objects.filter(unit=self).count()
-    #     if all_questions == answered_right:
-    #         return True
-    #     else:
-    #         return False
-
     def activate(self):
         for question in self.questions.all():
             question.activate()
@@ -254,41 +232,41 @@ class UserLessonProgress(models.Model):
         self.save()
 
 
-# class UserAns(models.Model):
-#     '''
-#     Storage of User Answers.
-#     We will use this to detect patterns in user answers
-#     to improve lecture quality.
-#     Probably, this item creation should occur in celery task.
-#     '''
-#     user = models.ForeignKey(User)
-#     answer = models.ForeignKey(Answer)
-#     time_answered = models.DateTimeField(auto_now_add=True)
-#     # Denormalised fields to have ui quick
-#     position = models.IntegerField(default=0)
-#     question = models.ForeignKey(Question)
-#     unit = models.ForeignKey(Unit)
-#     lesson = models.ForeignKey(Lesson)
-#     course = models.ForeignKey(Course)
-#     is_right = models.BooleanField()
+class UserAns(models.Model):
+    '''
+    Storage of User Answers.
+    We will use this to detect patterns in user answers
+    to improve lecture quality.
+    Probably, this item creation should occur in celery task.
+    '''
+    user = models.ForeignKey(User)
+    answer = models.ForeignKey(Answer)
+    time_answered = models.DateTimeField(auto_now_add=True)
+    # Denormalised fields to have ui quick
+    position = models.IntegerField(default=0)
+    question = models.ForeignKey(Question)
+    unit = models.ForeignKey(Unit)
+    lesson = models.ForeignKey(Lesson)
+    course = models.ForeignKey(Course)
+    is_right = models.BooleanField()
 
-#     class Meta:
-#         verbose_name = _('User answer')
-#         verbose_name_plural = _('User answers')
+    class Meta:
+        verbose_name = _('User answer')
+        verbose_name_plural = _('User answers')
 
 
-#     def save(self, *args, **kwargs):
-#         """
-#         Populate additional fields for UserAns
-#         """
-#         self.course = self.answer.question.unit.lesson.course
-#         self.lesson = self.answer.question.unit.lesson
-#         self.unit = self.answer.question.unit
-#         self.question = self.answer.question
-#         self.is_right = self.answer.is_right
-#         n = UserAns.objects.filter(
-#             user=self.user,
-#             question=self.question
-#         ).count()
-#         self.position = n + 1
-#         super(UserAns, self).save(*args,**kwargs)
+    def save(self, *args, **kwargs):
+        """
+        Populate additional fields for UserAns
+        """
+        self.course = self.answer.question.unit.lesson.course
+        self.lesson = self.answer.question.unit.lesson
+        self.unit = self.answer.question.unit
+        self.question = self.answer.question
+        self.is_right = self.answer.is_right
+        n = UserAns.objects.filter(
+            user=self.user,
+            question=self.question
+        ).count()
+        self.position = n + 1
+        super(UserAns, self).save(*args,**kwargs)
