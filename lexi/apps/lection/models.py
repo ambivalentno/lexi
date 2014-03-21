@@ -7,10 +7,23 @@ from django.utils.translation import ugettext_lazy as _
 from users.models import User
 
 
-class Course(models.Model):
+class Education(models.Model):
+    '''
+    Basic model to handle shared properties for all models
+    '''
     title = models.CharField(_('Title'), max_length=100)
-    slug = models.SlugField(_('Slug'), max_length=100)
     is_active = models.BooleanField(default=False)
+    created = models.DateTimeField(_('Created'), auto_now_add=True)
+    modified = models.DateTimeField(_('Modified'), auto_now=True)
+    creator = models.ForeignKey(User)
+
+    class Meta:
+        abstract = True
+
+
+
+class Course(Education):
+    slug = models.SlugField(_('Slug'), max_length=100)
 
     class Meta:
         verbose_name = _('Course')
@@ -26,15 +39,13 @@ class Course(models.Model):
         self.save()
 
 
-class Lesson(models.Model):
-    title = models.CharField(_('Title'), max_length=100)
+class Lesson(Education):
     slug = models.SlugField(_('Slug', editable=False), max_length=100)
     course = models.ForeignKey(
         Course,
         verbose_name=_('Course'),
         related_name='lessons',
     )
-    is_active = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _('Lesson')
@@ -69,12 +80,11 @@ class Lesson(models.Model):
         self.save()
 
 
-class Unit(models.Model):
+class Unit(Education):
     """
     Container to store video + explanation + link to question
     """
     # Data fields.
-    title = models.CharField(_('Title'), max_length=100)
     explanation = models.TextField(_('Explanation'), null=True, blank=True)
     video = EmbedVideoField()
     position = models.IntegerField(_('Position'))  # position in a lesson
@@ -84,9 +94,6 @@ class Unit(models.Model):
         verbose_name=_('Lesson'),
         related_name='units',
     )
-    created = models.DateTimeField(_('Created'), auto_now_add=True)
-    modified = models.DateTimeField(_('Modified'), auto_now=True)
-    is_active = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _('Unit')
@@ -130,23 +137,19 @@ class Unit(models.Model):
         self.save()
 
 
-class Question(models.Model):
+class Question(Education):
     """
     Question to ask students
     """
     # Data fields
-    title = models.CharField(max_length=255, null=True, blank=True)
     after_video = EmbedVideoField(blank=True, null=True)
     text = models.CharField(max_length=255)
     # Technical fields
-    created = models.DateTimeField(_('Created'), auto_now_add=True)
-    modified = models.DateTimeField(_('Modified'), auto_now=True)
     unit = models.ForeignKey(
         Unit,
         verbose_name=_('Unit'),
         related_name='questions',
     )
-    is_active = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = _('Question')
@@ -180,6 +183,9 @@ class Answer(models.Model):
         verbose_name=_('Question'),
         related_name='answers',
     )
+    creator = models.ForeignKey(User)
+    created = models.DateTimeField(_('Created'), auto_now_add=True)
+    modified = models.DateTimeField(_('Modified'), auto_now=True)
 
     class Meta:
         verbose_name = _('Answer')
