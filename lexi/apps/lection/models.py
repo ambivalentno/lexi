@@ -117,27 +117,27 @@ class Unit(Education, Titled):
             self.position = n + 1
         super(Unit, self).save(*args,**kwargs)
 
-    # def user_passed(self, user):
-    #     '''
-    #     Detect whether User answered all questions of current unit right
-    #     TODO: We will use this after we have multiple right answer
-    #     Args:
-    #         user: User instance
-    #     Returns:
-    #         True: if user passed this unit
-    #         False: if user did not pass this unit
-    #     '''
-    #     answered_right = UserAns.objects.filter(
-    #         user=user,
-    #         unit=self,
-    #         is_last=True,
-    #         is_right=True
-    #     ).count()
-    #     all_questions = Question.objects.filter(unit=self).count()
-    #     if all_questions == answered_right:
-    #         return True
-    #     else:
-    #         return False
+    def user_passed(self, user):
+        '''
+        Detect whether User answered all questions of current unit right
+        TODO: We will use this after we have multiple right answer
+        Args:
+            user: User instance
+        Returns:
+            True: if user passed this unit
+            False: if user did not pass this unit
+        '''
+        answered_right = UserAns.objects.filter(
+            user=user,
+            unit=self,
+            is_last=True,
+            is_right=True
+        ).count()
+        all_questions = Question.objects.filter(unit=self).count()
+        if all_questions == answered_right:
+            return True
+        else:
+            return False
 
     def activate(self):
         for question in self.questions.all():
