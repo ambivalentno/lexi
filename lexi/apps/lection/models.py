@@ -230,3 +230,15 @@ class UserLessonProgress(models.Model):
         self.units = self.units_get()
         self.units.add(unit.pk)
         self.save()
+
+
+class DownLink(models.Model):
+    url = models.URLField()
+    content = models.TextField()
+    start = models.DateTimeField(auto_now_add=True)
+    finish = models.DateTimeField(auto_now=True)
+
+
+class DownProcess(models.Model):
+    start = models.DateTimeField(auto_now_add=True)
+    finish = models.DateTimeField(auto_now=True)
