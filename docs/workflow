@@ -1,0 +1,62 @@
+Student
+0. Anonymous can view landing pages for courses + categories pages
+    Cannot view anything except this.
+1. Register with email - can enroll into course now
+2. Enroll to course - can view contents of first lesson and first units of all other lessons
+3. View first unit (watch video)
+4. Answer question
+    4.1. If right - redirect to the next unit video.
+        Link to the correctly answered unit is green now.
+    4.2. if wrong - show advertisement video and redirect to watch unit again
+5. Can download additional data from lecture (pdf doc with lecture notes)
+6. Answer quiz in the end of lesson. If quiz is answered correctly - mark lesson in green
+# IN FUTURE:
+can switch to the text + audio or text-only mode
+or to the slides + audio mode
+
+
+Teacher
+1. Register as a user
+2. Create a request with data:
+    2.1. University
+    2.2. Faculty
+    2.3. Phone number
+    2.4. Job position
+    2.5. Qualification data
+3. Request is processed by our staff
+4. Now user got a staus 'teacher'
+5. He creates a course
+7. He can add new lessons to the course now
+8. He adds lesson
+9. he rearranges lessons with drag'n'drop
+10. he adds units in lesson.
+11. he rearranges units with drag'n'drop
+12. he adds question + answer to the unit
+13. He activates course.
+    13.1. if units with issues - he sees list of lessons marked in red (others are hidden)
+    when he clicks at lesson with issue - only units with issues are not hidden
+    13.2. if we have any units with errors - we don't activate course.
+
+14. he adds one more lesson. it is not active (despites others are active).
+    he can see it a bit blurred in the list of lessons
+15. he adds unit to the active lesson. it is not active until activation button pressed.
+
+
+# In future:
+Translator:
+1. Register as a user
+2. Create a request with data:
+    Optional:
+    2.1. University
+    2.2. Faculty
+    2.3. Phone number
+    2.4. Job position
+    Required:
+    language to translate to
+
+After request processing:
+1. Pick a course to translate
+2. translate textual data
+3. translate questions + answers
+4. Submit translation to review
+

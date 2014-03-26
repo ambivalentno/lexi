@@ -1,13 +1,15 @@
 from embed_video.fields import EmbedVideoField
 
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from users.models import User
+from users.utils.thumbs import ImageWithThumbsField
 
 
-class Education(models.Model):
+class Basic(models.Model):
     '''
     Basic model to handle shared properties for all models
     '''
@@ -31,7 +33,7 @@ class Titled(models.Model):
 
 
 
-class Course(Education, Titled):
+class Course(Basic, Titled):
     slug = models.SlugField(_('Slug'), max_length=100)
 
     class Meta:
@@ -48,12 +50,17 @@ class Course(Education, Titled):
         self.save()
 
 
-class Lesson(Education, Titled):
+class Lesson(Basic, Titled):
     slug = models.SlugField(_('Slug', editable=False), max_length=100)
     course = models.ForeignKey(
         Course,
         verbose_name=_('Course'),
         related_name='lessons',
+    )
+    notes = models.FileField(
+        _('Lesson notes'),
+        upload_to='lesson_notes/',
+        null=True, blank=True
     )
 
     class Meta:
@@ -89,7 +96,7 @@ class Lesson(Education, Titled):
         self.save()
 
 
-class Unit(Education, Titled):
+class Unit(Basic, Titled):
     """
     Container to store video + explanation + link to question
     """
@@ -124,12 +131,17 @@ class Unit(Education, Titled):
         self.save()
 
 
-class Question(Education, Titled):
+class Question(Basic, Titled):
     """
     Question to ask students
     """
     # Data fields
-    after_video = EmbedVideoField(blank=True, null=True)
+    picture = ImageWithThumbsField(
+        _('Question picture'),
+        upload_to='question_images/',
+        sizes=settings.QUESTIONPIC_SIZES,
+        null=True, blank=True
+    )
     text = models.CharField(max_length=255)
     # Technical fields
     unit = models.ForeignKey(
@@ -162,7 +174,7 @@ class Question(Education, Titled):
         self.save()
 
 
-class Answer(Education):
+class Answer(Basic):
     is_right = models.BooleanField(_('is_right'), default=False)
     text = models.CharField(max_length=255)
     question = models.ForeignKey(

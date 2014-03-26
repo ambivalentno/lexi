@@ -182,6 +182,13 @@ LOGGING = {
 # New settings from various apps
 TEST_RUNNER = 'django_behave.runner.DjangoBehaveTestSuiteRunner'
 
+# Settings that I don't know where to put
+QUESTIONPIC_SIZES = (
+    (640, 468),
+    (1024, 768),
+    (400, 300),
+)
+
 try:
     from local import *
 except:
