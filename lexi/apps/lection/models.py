@@ -25,8 +25,20 @@ class Titled(models.Model):
     '''
     add title field
     '''
+    DEVELOPMENT = 0
+    ERROR = 1
+    ACTIVE = 2
+    STATUSES = (
+        (DEVELOPMENT, 'In development'),  # No activation efforts yet
+        (ERROR, 'Have errors'),
+        (ACTIVE, 'Is activated'),
+    )
     title = models.CharField(_('Title'), max_length=100)
     is_active = models.BooleanField(default=False)
+    status = models.PositiveSmallIntegerField(
+        choices=STATUSES,
+        default=DEVELOPMENT
+    )
 
     class Meta:
         abstract = True
