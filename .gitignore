@@ -4,6 +4,7 @@
 \.DS_Store
 settings/local.py
 .env/
+var/
 src
 django.pid
 /*/static/*
