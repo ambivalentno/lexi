@@ -2,8 +2,9 @@
 *\.pyc
 *.pyc
 \.DS_Store
-lexi/settings/local.py
+lexi/settings/local_settings.py
 .env/
+venv/
 var/
 src
 django.pid
