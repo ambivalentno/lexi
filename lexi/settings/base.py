@@ -22,6 +22,8 @@ _ = lambda s: s
 
 sys.path.append(root('apps'))
 
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
