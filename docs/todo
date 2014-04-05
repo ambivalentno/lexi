@@ -1,4 +1,9 @@
+drop enhanced admin to have sqlite in tests
 add modeltranslation (in models only for now)
+USER:
+remake to django-allauth
+https://speakerdeck.com/tedtieken/signing-up-and-signing-in-users-in-django-with-django-allauth
+Drop avatars
 
 VIEWS:
 1. Views for teacher
@@ -43,8 +48,6 @@ UNIT:
 I did not resolve issues with changes in is_active Units/maybe custom clean()?
 add textfield for textual representation of unit
 
-USER:
-Drop avatars
 
 DEPLOY:
 1. AWS

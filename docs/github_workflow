@@ -1,0 +1,14 @@
+Github workflow:
+
+To add a new feature:
+1. add a new branch
+    git checkout master
+    git checkout -b <branch_name>
+    git push origin <branch_name>
+2. add new features
+    git commit -a -m 'changes'
+    git push
+3. merge master to the branch
+    git merge master --no-ff
+    resolve conflicts
+4. create a pull-request to master through github web-interface
