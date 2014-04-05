@@ -2,7 +2,7 @@
 *\.pyc
 *.pyc
 \.DS_Store
-settings/local.py
+lexi/settings/local.py
 .env/
 var/
 src
@@ -18,3 +18,4 @@ logs/*
 *~
 .idea/
 reports/
+

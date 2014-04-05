@@ -8,7 +8,7 @@ CURRPATH      = $(shell pwd)
 PIDFILE       = $(shell pwd)/etc/django.pid
 
 
-PROJECT_TEST_TARGETS=core lection
+PROJECT_TEST_TARGETS=lection users
 
 # constants
 PYTHONPATH = .:..

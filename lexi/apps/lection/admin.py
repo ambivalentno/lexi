@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from embed_video.admin import AdminVideoMixin
 from nested_inlines.admin import NestedModelAdmin, NestedStackedInline, NestedTabularInline
 
-from .models import Course, Lesson, Question, Answer, Unit, UserAns
+from .models import Course, Lesson, Question, Answer, Unit
 
 
 class AnswerInline(NestedTabularInline):
@@ -19,7 +19,7 @@ class QuestionInline(NestedStackedInline):
     fieldsets = [
         (_('Text'), {'fields': ['text']}),
         (_('Additional data'),
-         {'fields': ['after_video', 'title'],
+         {'fields': ['title'],
          'classes': ['collapse']}
         ),
     ]
@@ -54,4 +54,3 @@ class UserAnsAdmin(admin.ModelAdmin):
 admin.site.register(Unit, UnitAdmin)
 admin.site.register(Course)
 admin.site.register(Lesson, LessonAdmin)
-admin.site.register(UserAns, UserAnsAdmin)

@@ -24,22 +24,14 @@ sys.path.append(root('apps'))
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'lexi',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        #'HOST': '/var/run/mysqld/mysqld.sock',
+        'USER': 'lexi',
+        'PASSWORD': '',
         'PORT': '',
-        'OPTIONS': {'charset': 'utf8',
-                    "init_command": "SET storage_engine=INNODB, \
-                                     SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED"},
-        'TEST_NAME': 'lexi_test',
-        'TEST_CHARSET': 'utf8',
-        'TEST_COLLATION': 'utf8_general_ci'
+        'HOST': 'localhost',
     },
 }
-if 'test' in sys.argv:
-    DATABASES['default']['OPTIONS']["init_command"] = "SET storage_engine=MyISAM"
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -190,12 +182,12 @@ QUESTIONPIC_SIZES = (
 )
 
 try:
-    from local import *
+    from .local import *
 except:
     print 'please add local.py'
 
 try:
-    from utils import *
+    from .utils import *
 except:
     print 'please add utils.py'
 
