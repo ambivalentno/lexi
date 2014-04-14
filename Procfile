@@ -1,1 +1,1 @@
-web: python manage.py runserver 0.0.0.0:$PORT --noreload --settings=lexi.settings.heroku
+web: python manage.py runserver 0.0.0.0:$PORT --settings=lexi.settings.heroku
