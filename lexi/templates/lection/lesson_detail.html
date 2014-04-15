@@ -1,0 +1,7 @@
+<h1>Lesson: {{ object.title }}</h1><br>
+<p><h3>Units list</h3></p>
+{% for unit in object.units.all %}
+<p><h3><a href="{% url 'unit-detail' unit.id %}">{{ unit.title }}</a></h3></p>
+{% empty %}
+<p> No units yet. Please add them at <a href="{% url 'admin:lection_unit_add' %}">admin</a></p>
+{% endfor %}

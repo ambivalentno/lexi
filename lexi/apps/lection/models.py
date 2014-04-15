@@ -15,7 +15,7 @@ class Basic(models.Model):
     '''
     created = models.DateTimeField(_('Created'), auto_now_add=True)
     modified = models.DateTimeField(_('Modified'), auto_now=True)
-    creator = models.ForeignKey(User)
+    # creator = models.ForeignKey(User)
 
     class Meta:
         abstract = True
@@ -63,7 +63,7 @@ class Course(Basic, Titled):
 
 
 class Lesson(Basic, Titled):
-    slug = models.SlugField(_('Slug', editable=False), max_length=100)
+    slug = models.SlugField(_('Slug'), max_length=100)
     course = models.ForeignKey(
         Course,
         verbose_name=_('Course'),
@@ -167,7 +167,7 @@ class Question(Basic, Titled):
         verbose_name_plural = _('Questions')
 
     def __unicode__(self):
-        return self.pk
+        return self.title
 
     def activate(self):
         if self.answers.count() < 2:

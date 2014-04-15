@@ -1,0 +1,8 @@
+
+<h1>Course: {{ object.title }}</h1><br>
+<p><h3>Lesson list</h3></p>
+{% for lesson in object.lessons.all %}
+<p><h3><a href="{% url 'lesson-detail' lesson.slug %}">{{ lesson.title }}</a></h3></p>
+{% empty %}
+<p> No lessons yet. Please add them at <a href="{% url 'admin:lection_lesson_add' %}">admin</a></p>
+{% endfor %}
