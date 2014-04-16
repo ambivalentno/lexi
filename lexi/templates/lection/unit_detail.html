@@ -18,7 +18,7 @@
         {% video object.video 'medium' %}
     </div>
     
-    <div id="questions">
+    <div id="questions" style="display: none">
         <h3>Questions</h3>
         {% for question in object.questions.all %}
             <form action="" role="form">
@@ -42,4 +42,10 @@
             <p> No questions yet. Please add them at <a href="{% url 'admin:lection_question_add' %}">admin</a></p>
         {% endfor %}
     </div>
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    {% load staticfiles %}
+    <script src="{% static 'js/unit.js' %}"></script>
 {% endblock %}
