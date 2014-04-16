@@ -67,10 +67,10 @@ MEDIA_URL = '/media/'
 # heroku staticfiles config.
 # Taken from https://devcenter.heroku.com/articles/getting-started-with-django
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = root('static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(root('static'), 'general'),
 )
 
 # List of finder classes that know how to find static files in
