@@ -1,6 +1,10 @@
 {% extends "core.html" %}
 
 {% block content %}
+    <ol class="breadcrumb">
+        <li><a href="{% url 'course-list' %}">Courses</a></li>
+        <li class="active">{{ object.title }}</li>
+    </ol>
 
 	<h1>Course: {{ object.title }}</h1><br>
 	<p><h3>Lesson list</h3></p>

@@ -1,6 +1,12 @@
 {% extends "core.html" %}
 
 {% block content %}
+    <ol class="breadcrumb">
+        <li><a href="{% url 'course-list' %}">Courses</a></li>
+        <li><a href="{% url 'course-detail' object.course.slug %}">{{ object.course.title }}</a></li>
+        <li class="active">{{ object.title }}</li>
+    </ol>
+
 	<h1>Lesson: {{ object.title }}</h1><br>
 	<p><h3>Units list</h3></p>
 	{% for unit in object.units.all %}
