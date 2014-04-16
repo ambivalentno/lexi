@@ -107,7 +107,6 @@ class Lesson(Basic, Titled):
         self.is_active = True
         self.save()
 
-
 class Unit(Basic, Titled):
     """
     Container to store video + explanation + link to question
@@ -141,7 +140,6 @@ class Unit(Basic, Titled):
             question.activate()
         self.is_active = True
         self.save()
-
 
 class Question(Basic, Titled):
     """
