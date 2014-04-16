@@ -1,23 +1,27 @@
-{% load embed_video_tags %}
+{% extends "core.html" %}
 
-<h1>Unit: {{ object.title }}</h1><br>
-{% video object.video 'small' %}
-<p><h3>question list</h3></p>
-{% for question in object.questions.all %}
-    {{ question.text }}
-    <form action="">
-    {% for answer in question.answers.all %}
-        <input type="radio" name="answer" value={{ answer.id }}>{{ answer.text}}<br>
-    {% empty %}
-        <p> No answers yet. Please add them at <a href="{% url 'admin:lection_answer_add' %}">admin</a></p>
-    {% endfor%}
-    <button type="button">Ответить</button>
-    </form>
+{% block content %}
+	{% load embed_video_tags %}
+
+	<h1>Unit: {{ object.title }}</h1><br>
+	{% video object.video 'small' %}
+	<p><h3>question list</h3></p>
+	{% for question in object.questions.all %}
+		{{ question.text }}
+		<form action="">
+		{% for answer in question.answers.all %}
+			<input type="radio" name="answer" value={{ answer.id }}>{{ answer.text}}<br>
+		{% empty %}
+			<p> No answers yet. Please add them at <a href="{% url 'admin:lection_answer_add' %}">admin</a></p>
+		{% endfor%}
+		<button type="button">Ответить</button>
+		</form>
 
 
 
 
 
-{% empty %}
-    <p> No questions yet. Please add them at <a href="{% url 'admin:lection_question_add' %}">admin</a></p>
-{% endfor %}
+	{% empty %}
+		<p> No questions yet. Please add them at <a href="{% url 'admin:lection_question_add' %}">admin</a></p>
+	{% endfor %}
+{% endblock %}
