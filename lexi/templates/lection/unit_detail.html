@@ -1,5 +1,7 @@
 {% extends "core.html" %}
 
+{% block title %}{{ object.title }}{% endblock %}
+
 {% block content %}
 	{% load embed_video_tags %}
     
@@ -12,30 +14,32 @@
 
 	<h1>Unit: {{ object.title }}</h1><br>
     
-    <div class="text-center">
-        {% video object.video 'small' %}
+    <div id="video-wrapper" class="text-center">
+        {% video object.video 'medium' %}
     </div>
     
-	<h3>Questions</h3>
-	{% for question in object.questions.all %}
-		<form action="" role="form">
-            <div class="form-group">
-                <label>{{ question.text }}</label>
-                {% for answer in question.answers.all %}
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="answer" value="{{ answer.id }}">
-                            {{ answer.text}}
-                        </label>
-                    </div>
-                {% empty %}
-                    <p> No answers yet. Please add them at <a href="{% url 'admin:lection_answer_add' %}">admin</a></p>
-                {% endfor%}
-            </div>
-            <button type="button" class="btn btn-default">Ответить</button>
-		</form>
+    <div id="questions">
+        <h3>Questions</h3>
+        {% for question in object.questions.all %}
+            <form action="" role="form">
+                <div class="form-group">
+                    <label>{{ question.text }}</label>
+                    {% for answer in question.answers.all %}
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="answer" value="{{ answer.id }}">
+                                {{ answer.text}}
+                            </label>
+                        </div>
+                    {% empty %}
+                        <p> No answers yet. Please add them at <a href="{% url 'admin:lection_answer_add' %}">admin</a></p>
+                    {% endfor%}
+                </div>
+                <button type="button" class="btn btn-default">Ответить</button>
+            </form>
 
-	{% empty %}
-		<p> No questions yet. Please add them at <a href="{% url 'admin:lection_question_add' %}">admin</a></p>
-	{% endfor %}
+        {% empty %}
+            <p> No questions yet. Please add them at <a href="{% url 'admin:lection_question_add' %}">admin</a></p>
+        {% endfor %}
+    </div>
 {% endblock %}
