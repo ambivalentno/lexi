@@ -5,6 +5,9 @@ function onYouTubePlayerReady(playerId) {
 
 function handler(state) {
     if (state === 0) {
-        $('#questions').slideDown();
+		$("html, body").animate(
+			{scrollTop: $('#questions').position().top},
+			2000
+		);
     }
 }
