@@ -35,6 +35,12 @@ urlpatterns = patterns('',
     ),
 
     # Apps and technical part
+    # Don't show additional confirmation after logout
+    url(
+        r'^accounts/logout/$',
+        'django.contrib.auth.views.logout',
+        {'next_page': '/'}
+    ),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),

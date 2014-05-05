@@ -205,10 +205,12 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 
 # auth and allauth settings
 LOGIN_REDIRECT_URL = '/'
-SOCIALACCOUNT_QUERY_EMAIL = True
+ACCOUNT_EMAIL_REQUIRED = False
 SOCIALACCOUNT_PROVIDERS = {
     'facebook': {
         'SCOPE': ['email', 'publish_stream'],
         'METHOD': 'js_sdk'  # instead of 'oauth2'
     }
 }
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+SOCIALACCOUNT_AUTO_SIGNUP = True
