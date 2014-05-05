@@ -131,6 +131,7 @@ INSTALLED_APPS = (
     'django_behave',
     'embed_video',
     'django_extensions',
+    'bootstrapform',
 
     'allauth',
     'allauth.account',
